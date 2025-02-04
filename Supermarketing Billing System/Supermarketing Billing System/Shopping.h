@@ -84,7 +84,8 @@ void Shopping::admistrator() {
 
 	m:
 
-	int choice;
+	int choice =0;
+
 	cout << "\n\n\n\t\t\tAdministrator Menu";
 	cout << "\n\t\t\t|_____1) Add the product_____";
 	cout << "\n\t\t\t|                            ";
@@ -146,7 +147,7 @@ void Shopping::buyer() {
 }
 
 void Shopping::add() {
-//	m:
+	m:
 	fstream data;
 	int c = 0;
 	int token = 0;
@@ -183,9 +184,10 @@ void Shopping::add() {
 		}
 		data.close();
 	}
-	if (token == 1)
-		//goto m;
-		cout << "\nProduct code already exists. Try again.\n";
+	if (token == 1){
+		goto m;
+	}
+
 	else {
 		data.open("database.txt", ios::app | ios::out);
 		data << " " << pcode << " " << pname << " " << price << " " << dis << "\n";
