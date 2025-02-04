@@ -24,7 +24,7 @@ public:
 };
 
 void Shopping::menu() {
-m:
+	m:
 	int choice;
 	string email;
 	string password;
@@ -82,6 +82,8 @@ m:
 
 void Shopping::admistrator() {
 
+	m:
+
 	int choice;
 	cout << "\n\n\n\t\t\tAdministrator Menu";
 	cout << "\n\t\t\t|_____1) Add the product_____";
@@ -110,12 +112,14 @@ void Shopping::admistrator() {
 		menu();
 		break;
 	default:
+		cout << "Invalid choice!";
 		break;
 	}
+	goto m;
 }
 
 void Shopping::buyer() {
-m:
+	m:
 	int choice;
 	cout << "\t\t\t Buyer \n";
 	cout << "\t\t\t_______________\n";
@@ -142,7 +146,7 @@ m:
 }
 
 void Shopping::add() {
-m:
+//	m:
 	fstream data;
 	int c = 0;
 	int token = 0;
@@ -163,23 +167,25 @@ m:
 	data.open("database.txt", ios::in);
 
 	if (!data) {
-		data.open("database.txt", ios::app | ios::out);
+		data.open("database.txt", ios::app|ios::out);
 		data << " " << pcode << " " << pname << " " << price << " " << dis << "\n";
 		data.close();
 	}
-	else {
-		data >> n >> p >> d;
+	else 
+	{
+		data >>c>>n>>p>>d;
 
 		while (!data.eof()) {
 			if (c == pcode) {
 				token++;
 			}
-			data >> c >> n >> p >> d;
+			data>>c>>n>>p>>d;
 		}
 		data.close();
 	}
 	if (token == 1)
-		goto m;
+		//goto m;
+		cout << "\nProduct code already exists. Try again.\n";
 	else {
 		data.open("database.txt", ios::app | ios::out);
 		data << " " << pcode << " " << pname << " " << price << " " << dis << "\n";
@@ -190,52 +196,52 @@ m:
 
 void Shopping::edit() {
 	fstream data, data1;
-	int pkey;
-	int token = 0;
-	int c;
-	float p;
-	float d;
+	int pkey, token = 0, c;
+	float p, d;
 	string n;
 
-	cout << "\n\t\t\t Modify the record";
-	cout << "\n\t\t\t Product code :";
+	cout << "\n\t\t\t Modify the record" << endl;
+	cout << "\n\t\t\t Product code: ";
 	cin >> pkey;
 
 	data.open("database.txt", ios::in);
 	if (!data) {
-		cout << "\n\nFile doesnt exist! ";
+		cout << "\n\nFile doesn't exist!" << endl;
 	}
 	else {
 		data1.open("database1.txt", ios::app | ios::out);
 
 		data >> pcode >> pname >> price >> dis;
-		while (!data.eof()) {
-			if (pkey == pcode) {
-				cout << "\n\t\t Product new code :";
+		while (!data.eof())
+		{
+			if (pkey == pcode) 
+			{
+				cout << "\n\t\t New product code: ";
 				cin >> c;
-				cout << "\n\t\t Name of the product :";
+				cout << "\n\t\t New name of the product: ";
+				cin >> n;
+				cout << "\n\t\t New price: ";
 				cin >> p;
-				cout << "\n\t\t Price :";
-				cout << "\n\t\t Discount :";
+				cout << "\n\t\t New discount: ";
 				cin >> d;
-				data1 << " " << c << " " << n << " " << p << " " << d << "\n";
-				cout << "\n\n\t\t Record edited ";
+				data1<<" "<<c<<" "<<n<<" "<<p<<" "<<d<< "\n";
+				cout << "\n\n\t\t Record edited" << endl;
 				token++;
 			}
-			else {
-				data1 << " " << pcode << " " << " " << pname << " " << price << " " << dis << "\n";
+			else 
+			{
+				data1<<" "<<pcode<<" "<<pname<<" "<<price<<" "<<dis<<"\n";
 			}
-			data >> pcode >> pname >> price >> dis;
+			data>>pcode>>pname>>price>>dis;
 		}
-	}
-	data.close();
-	data1.close();
+		data.close();
+		data1.close();
 
-	remove("database.txt");
-	rename("database1.txt", "database.txt");
-
-	if (token == 0) {
-		cout << "\n\n Record not found sorry!";
+		remove("database.txt");
+		rename("database1.txt", "database.txt");
+		if (token == 0) {
+			cout << "\n\n Record not found. Sorry!" << endl;
+		}
 	}
 }
 void Shopping::rem() {
@@ -258,7 +264,8 @@ void Shopping::rem() {
 				cout << "\n\n\t Product deleted successfully";
 				token++;
 			}
-			else {
+			else 
+			{
 				data1 << " " << pcode << " " << pname << " " << price << " " << dis << "\n";
 			}
 			data >> pcode >> pname >> price >> dis;
@@ -317,7 +324,7 @@ void Shopping::receipt() {
 		cout << "\n                                 \n";
 		cout << "\n_________________________________\n";
 		do {
-		m:
+			m:
 			cout << "\n\nEnter Product code: ";
 			cin >> arrc[c];
 			cout << "\n\nEnter the product quantity :";
